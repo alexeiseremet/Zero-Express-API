@@ -1,0 +1,9 @@
+# dependencies
+config.js
+node_modules
+yarn.lock
+
+# misc
+.DS_Store
+.env
+npm-debug.log

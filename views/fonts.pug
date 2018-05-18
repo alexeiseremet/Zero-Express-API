@@ -1,0 +1,19 @@
+extends index.pug
+
+block content
+  h1 Fonts
+  br/
+  div(class="uk-grid uk-grid-small uk-child-width-expand@m uk-grid-match")
+    each font in fonts
+      div
+        div(class="uk-card uk-card-default uk-card-body")
+          h3(class="uk-card-title")= font.title
+          p= font.description
+          if user
+            a(
+              class="js-like uk-button uk-button-primary uk-button-small"
+              onclick="likeFont(event)"
+              href="/fonts/" + font._id + "/like"
+            ) #{font.likes} Like
+          else
+            i #{font.likes} Like

@@ -1,0 +1,10 @@
+extends index.pug
+
+block content
+  h1 Accounts
+  br/
+  ul(class="uk-list uk-list-bullet")
+    each account in accounts
+      li
+        b= account.name + ' '
+        i(class="uk-text-meta")= account.email

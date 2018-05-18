@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title Express, Mongoose, Passport, Pug.
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.2/css/uikit.min.css"
+    )
+
+  body
+    nav(class="uk-navbar uk-navbar-container")
+      div(class="uk-navbar-left")
+        a(class="uk-navbar-item uk-logo" href="/") Logo
+        ul(class="uk-navbar-nav")
+          li: a(href="/fonts") Fonts
+          li: a(href="/accounts") Accounts
+      div(class="uk-navbar-right")
+        ul(class="uk-navbar-nav")
+          if (user)
+            li: a(href="/logout") Logout
+          else
+            li: a(href="/login") Login
+
+    div(class="uk-section uk-section-default")
+      div(class="uk-container")
+        block content
+          h1(class="uk-text-large") Hello, #{user ? user.name : 'Guest'}
+          p Gobsmacked morris dancers pot noodle scouser
+            | what a load of cobblers, got a lot of brass what a load of cobblers.
+
+    script(src="/js/scripts.js")

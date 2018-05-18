@@ -1,0 +1,15 @@
+extends index.pug
+
+block content
+  form(class="uk-form-stacked uk-width-large" action="/login" method="post")
+    fieldset(class="uk-fieldset")
+      legend(class="uk-legend") Authentication
+      div(class="uk-margin")
+        input(class="uk-input" type="email" name="email" placeholder="Email")/
+      div(class="uk-margin")
+          input(class="uk-input" type="password" name="password" placeholder="Password")/
+      div(class="uk-margin")
+        button(class="uk-button uk-button-primary" type="submit") Login
+
+  for message in flash
+    p(class="uk-text-danger")= message.message
