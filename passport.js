@@ -3,21 +3,6 @@ const Account = require('./models/account.model');
 
 /** Local strategy */
 const LocalStrategy = require('passport-local').Strategy;
-const local = new LocalStrategy({
-    usernameField: 'email',
-    passReqToCallback : true
-  },
-  function (req, email, password, done) {
-    Account.findOne({email})
-      .then(account => {
-        if (!account || !account.validPassword(password)) {
-          done(null, false, {message: "Invalid username/password"});
-        } else {
-          done(null, account);
-        }
-      })
-      .catch(err => done(err));
-  });
 
 /** Facebook strategy */
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -36,14 +21,8 @@ const facebook = new FacebookStrategy({
 
 
 module.exports = function (passport) {
-  passport.use('local', local);
-  passport.use('facebook', facebook);
+  passport.use(Account.createStrategy());
 
-  passport.serializeUser(function (account, done) {
-    done(null, account._id)
-  });
-
-  passport.deserializeUser(function (id, done) {
-    Account.findById(id, (err, account) => done(err, account));
-  });
+  passport.serializeUser(Account.serializeUser());
+  passport.deserializeUser(Account.deserializeUser());
 };

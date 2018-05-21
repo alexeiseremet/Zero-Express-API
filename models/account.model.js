@@ -1,9 +1,7 @@
-const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const Schema = require('mongoose').Schema;
-
-const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('validator');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 /** Account model */
 let accountSchema = new Schema({
@@ -14,20 +12,16 @@ let accountSchema = new Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Invalid Email Address']
   },
-  password: {
+  password: String,
+  name: {
     type: String,
-    required: true,
+    required: true
   },
-  name: String,
-  role: String
-});
-
-/** Account public methods */
-accountSchema.methods = {
-  validPassword: function(password) {
-    return bcrypt.compareSync(password, this.password);
+  role: {
+    type: String,
+    default: 'Principal design'
   }
-};
+});
 
 /** Account static methods */
 accountSchema.statics = {
@@ -39,6 +33,8 @@ accountSchema.statics = {
   }
 };
 
-accountSchema.plugin(passportLocalMongoose);
+accountSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email'
+});
 
 module.exports = mongoose.model('Account', accountSchema);
